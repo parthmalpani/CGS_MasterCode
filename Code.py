@@ -87,7 +87,7 @@ search_button = tk.Button(root, text="Search", command=search, width=20, font=("
 search_button.grid(row=5, column=0, columnspan=8, pady=10)
 
 # Result label
-result_label = tk.Label(root, text="", background="light blue")
+result_label = tk.Label(root, text="", background="light blue", foreground="Blue")
 result_label.config(font=("Georgia",20))
 result_label.grid(row=8, column=0, columnspan=8, pady=10)
 
