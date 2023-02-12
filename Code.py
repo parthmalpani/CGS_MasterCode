@@ -62,7 +62,7 @@ def search():
     # If the number was found, update color of box
     if result != -1:
         update_color(result, "green")
-        result_label.config(text="Index: {}".format(result))
+        result_label.config(text="Index of element is {}\nElement is found in {}th box".format(result, result + 1))
     else:
         result_label.config(text="Number not found.")
 
@@ -87,7 +87,8 @@ search_button = tk.Button(root, text="Search", command=search, width=20, font=("
 search_button.grid(row=5, column=0, columnspan=8, pady=10)
 
 # Result label
-result_label = tk.Label(root, text="", background="light blue",font=(28))
+result_label = tk.Label(root, text="", background="light blue")
+result_label.config(font=("Georgia",20))
 result_label.grid(row=8, column=0, columnspan=8, pady=10)
 
 # Start GUI event loop
