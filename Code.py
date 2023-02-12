@@ -80,7 +80,7 @@ for i in range(7):
 # Search entry
 search_entry = tk.Entry(root, width=20, font=(18))
 search_entry.grid(row=4, column=0, columnspan=8, pady=10)
-search_entry.configure(bg='yellow')
+search_entry.configure(bg='orange')
 
 # Search button
 search_button = tk.Button(root, text="Search", command=search, width=20, font=("Georgia",18,"bold"), foreground="blue", background="orange")
