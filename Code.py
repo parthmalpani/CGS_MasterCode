@@ -32,6 +32,10 @@ def binary_search(arr, x):
     # Element is not present in array
     return -1
 
+#heading
+heading = tk.Label(root, text="Binary Search Visualization", font=("Helvetica", 35, "bold"), foreground="Blue", background="Light Blue")
+heading.grid(row=0, column=0, columnspan=8, pady=10)
+
 # Function to update color of searched box
 def update_color(index, color):
     boxes[index].configure(bg=color)
@@ -64,23 +68,27 @@ def search():
 
 # User input boxes for array
 boxes = []
-for i in range(15):
+for i in range(8):
     box = tk.Entry(root, width=10)
-    box.grid(row=i//8, column=i%8, padx=10, pady=10)
+    box.grid(row=2, column=i%8, padx=10, pady=10)
     boxes.append(box)
+for i in range(7):
+    box2 = tk.Entry(root, width=10)
+    box2.grid(row=3, column=i%7, padx=10, pady=12)
+    boxes.append(box2)
 
 # Search entry
-search_entry = tk.Entry(root, width=20)
-search_entry.grid(row=2, column=0, columnspan=8, pady=10)
+search_entry = tk.Entry(root, width=20, font=(18))
+search_entry.grid(row=4, column=0, columnspan=8, pady=10)
 search_entry.configure(bg='yellow')
 
 # Search button
-search_button = ttk.Button(root, text="Search", command=search, width=20) 
-search_button.grid(row=4, column=0, columnspan=8, pady=10)
+search_button = ttk.Button(root, text="Search", command=search, width=20)
+search_button.grid(row=5, column=0, columnspan=8, pady=10)
 
 # Result label
-result_label = tk.Label(root, text="")
-result_label.grid(row=5, column=0, columnspan=8, pady=10)
+result_label = tk.Label(root, text="", background="light blue")
+result_label.grid(row=8, column=0, columnspan=8, pady=10)
 
 # Start GUI event loop
 root.mainloop()
