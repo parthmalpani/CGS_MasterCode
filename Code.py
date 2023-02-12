@@ -1,75 +1,86 @@
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 import random
 
-# Creating the main window
+# GUI window setup
 root = tk.Tk()
-root.title("Binary Search with GUI")
-root.geometry("500x500")
-root.configure(bg="#E5E5E5")
+root.title("Binary Search Visualization")
+root.geometry("800x600")
+root.configure(bg='lightblue')
 
-# Function to perform binary search
-def binary_search(arr, target):
+# Function for binary search algorithm
+def binary_search(arr, x):
     low = 0
     high = len(arr) - 1
+    mid = 0
+
     while low <= high:
-        mid = (low + high) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
+        mid = (high + low) // 2
+
+        # Check if x is greater, move to right half subarray
+        if arr[mid] < x:
             low = mid + 1
-        else:
+
+        # Check if x is smaller, move to left half subarray
+        elif arr[mid] > x:
             high = mid - 1
-    return None
 
-# Function to display the result of binary search
-def display_result(index, color):
-    result_label.config(text="Index: {}".format(index), font=("Helvetica", 16), bg="#E5E5E5")
-    for i in range(15):
-        if i == index:
-            boxes[i].config(bg=color)
+        # X is present at mid
         else:
-            boxes[i].config(bg="#FFFFFF")
+            return mid
 
-# Function to handle the button click event
+    # Element is not present in array
+    return -1
+
+# Function to update color of searched box
+def update_color(index, color):
+    boxes[index].configure(bg=color)
+
+# Function to reset color of boxes
+def reset_colors():
+    for box in boxes:
+        box.configure(bg="orange")
+
+# Function to search for a number in the array
 def search():
-    # Get the value entered by the user
-    target = int(input_entry.get())
+    # Get the value to search
+    search_value = int(search_entry.get())
 
-    # Call the binary search function
-    index = binary_search(numbers, target)
+    # Get the array to search in
+    arr = [int(box.get()) for box in boxes]
 
-    # Check if the target was found
-    if index is None:
-        display_result(None, "#FF0000")
+    # Run binary search on the array
+    result = binary_search(arr, search_value)
+
+    # Reset the colors of all boxes
+    reset_colors()
+
+    # If the number was found, update color of box
+    if result != -1:
+        update_color(result, "green")
+        result_label.config(text="Index: {}".format(result))
     else:
-        display_result(index, "#00FF00")
+        result_label.config(text="Number not found.")
 
-# Input label
-input_label = tk.Label(root, text="Enter the number:", font=("Helvetica", 16), bg="#E5E5E5")
-input_label.pack(pady=20)
-
-# Input entry
-input_entry = tk.Entry(root, font=("Helvetica", 16))
-input_entry.pack(pady=10)
-
-# Search button
-search_button = tk.Button(root, text="Search", font=("Helvetica", 16), command=search)
-search_button.pack(pady=10)
-
-# Result label
-result_label = tk.Label(root, font=("Helvetica", 16), bg="#E5E5E5")
-result_label.pack(pady=20)
-
-# Generate random numbers
-numbers = random.sample(range(100), 15)
-
-# Create a list of rectangles to represent the numbers
+# User input boxes for array
 boxes = []
 for i in range(15):
-    box = tk.Label(root, width=5, height=2, bg="#FFFFFF", font=("Helvetica", 16), text=str(numbers[i]), relief="solid")
-    box.pack(side="left", padx=10)
+    box = tk.Entry(root, width=10)
+    box.grid(row=i//8, column=i%8, padx=10, pady=10)
     boxes.append(box)
 
-# Display the main window
+# Search entry
+search_entry = tk.Entry(root, width=20)
+search_entry.grid(row=2, column=0, columnspan=8, pady=10)
+search_entry.configure(bg='yellow')
+
+# Search button
+search_button = ttk.Button(root, text="Search", command=search, width=20) 
+search_button.grid(row=4, column=0, columnspan=8, pady=10)
+
+# Result label
+result_label = tk.Label(root, text="")
+result_label.grid(row=5, column=0, columnspan=8, pady=10)
+
+# Start GUI event loop
 root.mainloop()
